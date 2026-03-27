@@ -6,16 +6,16 @@ const SeasonCarousel = ({ onSlideChange, activeSlide }) => {
   const navigate = useNavigate(); // 2. Inicializamos el hook
 
   const movies = [
-    { rating: '9.4/10', year: '2010', format: 'BDRemux 1080p', image: '/assets/peliculas/PEL01.jpg' },
-    { rating: '9.6/10', year: '2008', format: 'BDRip 1080p', image: '/assets/peliculas/PEL02.jpg' },
-    { rating: '9.2/10', year: '2014', format: '4K HDR10', image: '/assets/peliculas/PEL03.jpg' },
-    { rating: '9.5/10', year: '2019', format: 'WEB-DL 1080p', image: '/assets/peliculas/PEL04.jpg' },
-    { rating: '9.7/10', year: '2000', format: 'BDRemux 4K', image: '/assets/peliculas/PEL05.jpg' },
-    { rating: '9.3/10', year: '2014', format: 'BRRip 1080p', image: '/assets/peliculas/PEL06.jpg' },
-    { rating: '9.6/10', year: '2015', format: '4K ULTRA HD', image: '/assets/peliculas/PEL07.jpg' },
-    { rating: '9.8/10', year: '2019', format: 'BDRip 1080p', image: '/assets/peliculas/PEL08.jpg' },
-    { rating: '9.5/10', year: '1999', format: 'WEB-DL 4K', image: '/assets/peliculas/PEL09.jpg' }
-  ];
+  { rating: '9.4/10', year: '2010', format: '1080p', image: '/assets/peliculas/PEL01.jpg' },
+  { rating: '9.6/10', year: '2008', format: '1080p', image: '/assets/peliculas/PEL02.jpg' },
+  { rating: '9.2/10', year: '2014', format: '1080p', image: '/assets/peliculas/PEL03.jpg' },
+  { rating: '9.5/10', year: '2019', format: '1080p', image: '/assets/peliculas/PEL04.jpg' },
+  { rating: '9.7/10', year: '2000', format: '1080p', image: '/assets/peliculas/PEL05.jpg' },
+  { rating: '9.3/10', year: '2014', format: '1080p', image: '/assets/peliculas/PEL06.jpg' },
+  { rating: '9.6/10', year: '2015', format: '1080p', image: '/assets/peliculas/PEL07.jpg' },
+  { rating: '9.8/10', year: '2019', format: '1080p', image: '/assets/peliculas/PEL08.jpg' },
+  { rating: '9.5/10', year: '1999', format: '1080p', image: '/assets/peliculas/PEL09.jpg' },
+];
 
   const [currentIndex, setCurrentIndex] = useState(activeSlide || 0);
 

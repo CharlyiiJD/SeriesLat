@@ -2,20 +2,21 @@ import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { Play } from 'lucide-react';
-
-// Estilos base
+import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
 
 const EpisodesSection = ({ activeGlobalId, setActiveGlobalId }) => {
+  const navigate = useNavigate();
   const touchTimer = useRef(null);
 
   const episodes = Array.from({ length: 10 }).map((_, i) => ({
     title: `Episodio Especial ${i + 1}`,
     info: `T7 E${i + 1} / Feb. 03, 2026`,
-    series: "Outlander"
+    series: "Outlander",
+  temporadaId: 1,
+    episodioNumero: i + 1,
   }));
 
-  // Lógica de Delay para móvil
   const handleTouchStart = (id) => {
     if (touchTimer.current) clearTimeout(touchTimer.current);
     touchTimer.current = setTimeout(() => {
@@ -27,23 +28,20 @@ const EpisodesSection = ({ activeGlobalId, setActiveGlobalId }) => {
     if (touchTimer.current) clearTimeout(touchTimer.current);
   };
 
+  const handleEpisodioClick = (ep) => {
+    navigate(`/serie/descripcion?temporada=${ep.temporadaId}&episodio=${ep.episodioNumero}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="mt-14 w-full max-w-[1032px]">
-      {/* HEADER */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <div className="h-10 min-[850px]:h-12 w-[4px] bg-[#3b82f6] shadow-[0_0_15px_rgba(59,130,246,0.4)] rounded-full flex-shrink-0"></div>
-          <h2 className="text-sm min-[1100px]:text-base font-black uppercase leading-tight tracking-tighter text-white">
-            Nuevos <br className="hidden min-[850px]:block" /> Episodios
-          </h2>
-        </div>
-        
-        <div className="flex items-center gap-4">
-          <span className="text-[11px] font-bold text-gray-500 tracking-wider">105,223</span>
-          <button className="bg-[#3b82f6] hover:bg-[#2563eb] active:scale-95 text-white text-[10px] font-black px-3 py-1.5 rounded-sm uppercase transition-all cursor-pointer shadow-lg shadow-blue-500/20">
-            Ver Todo
-          </button>
-        </div>
+
+      {/* HEADER — sin contador ni botón */}
+      <div className="flex items-center gap-4 mb-8">
+        <div className="h-10 min-[850px]:h-12 w-[4px] bg-[#3b82f6] shadow-[0_0_15px_rgba(59,130,246,0.4)] rounded-full flex-shrink-0"></div>
+        <h2 className="text-sm min-[1100px]:text-base font-black uppercase leading-tight tracking-tighter text-white">
+          Nuevos <br className="hidden min-[850px]:block" /> Episodios
+        </h2>
       </div>
 
       {/* CARRUSEL SWIPER */}
@@ -72,8 +70,9 @@ const EpisodesSection = ({ activeGlobalId, setActiveGlobalId }) => {
 
             return (
               <SwiperSlide key={idx}>
-                <div 
+                <div
                   className="group cursor-pointer outline-none"
+                  onClick={() => handleEpisodioClick(ep)}
                   onTouchStart={(e) => {
                     e.stopPropagation();
                     handleTouchStart(myId);
@@ -81,17 +80,15 @@ const EpisodesSection = ({ activeGlobalId, setActiveGlobalId }) => {
                   onTouchMove={handleTouchEnd}
                   onTouchEnd={handleTouchEnd}
                 >
-                  {/* Contenedor con overflow-hidden para que el brillo respete el rounded-sm */}
                   <div className={`aspect-video w-full bg-white/5 rounded-sm overflow-hidden relative border
                     transition-all duration-500 ease-out
-                    ${isSelected 
-                      ? 'border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.3)] !duration-150' 
+                    ${isSelected
+                      ? 'border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.3)] !duration-150'
                       : 'border-white/5 min-[801px]:group-hover:border-[#3b82f6]/40 min-[801px]:group-hover:duration-150'
                     }`}
                   >
-                    {/* Fondo y Overlay */}
                     <div className={`absolute inset-0 bg-black/30 transition-colors duration-500 ${isSelected ? 'bg-transparent !duration-150' : ''}`}></div>
-                    
+
                     <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center">
                       <span className="text-[8px] text-gray-700 font-black uppercase tracking-[0.3em]">EP {idx + 1}</span>
                     </div>
